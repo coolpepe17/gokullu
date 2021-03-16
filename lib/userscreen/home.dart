@@ -16,9 +16,9 @@ class _MyHomePageState extends State<MyHomePage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool isLogin = (prefs.get('isLogin') ?? false);
 
-    // setState(() {
-    //   _isLogin = isLogin;
-    // });
+    setState(() {
+      _isLogin = isLogin;
+    });
 
     print('prefs $isLogin');
   }
