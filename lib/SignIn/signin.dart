@@ -71,25 +71,14 @@ class _SignIn extends State<SignIn> {
                   SizedBox(
                     width: 360,
                     child: TextFormField(
-                      // decoration: InputDecoration(
-                      //     border: InputBorder.none,
-                      //     icon: Icon(Icons.mail),
-                      //     labelText: 'Email',
-                      //     hintText: 'Type your email'),
-                      // validator: (String value) {
-                      //   if (value.trim().isEmpty) {
-                      //     return 'Nickname is required';
-                      //   } else {
-                      //     return null;
-                      //   }
-                      // },
                       keyboardType: TextInputType.emailAddress,
                       onSaved: (input) => loginRequestModel.email = input,
-                      // validator: (input) => !input.contains('@')
-                      // ? "Email Id should be valid"
-                      // : null,
+                      validator: (input) => input.length < 1
+                          // validator: (input) =>!input.contains('@')
+                          ? 'Kindly Enter email or Mobile'
+                          : null,
                       decoration: new InputDecoration(
-                        hintText: "Email Address",
+                        hintText: 'Email or Mobile',
                         enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
                                 color: Theme.of(context)
@@ -110,25 +99,11 @@ class _SignIn extends State<SignIn> {
                   SizedBox(
                     width: 360,
                     child: TextFormField(
-                      // obscureText: true,
-                      // decoration: InputDecoration(
-                      //     border: InputBorder.none,
-                      //     icon: Icon(Icons.lock),
-                      //     labelText: 'Password',
-                      //     hintText: 'Type password'),
-                      // validator: (String value) {
-                      //   if (value.trim().isEmpty) {
-                      //     return 'Nickname is required';
-                      //   } else {
-                      //     return null;
-                      //   }
-                      // },
                       style: TextStyle(color: Theme.of(context).accentColor),
                       keyboardType: TextInputType.text,
                       onSaved: (input) => loginRequestModel.password = input,
-                      validator: (input) => input.length < 3
-                          ? "Password should be more than 3 characters"
-                          : null,
+                      validator: (input) =>
+                          input.length < 1 ? "Invalid Password" : null,
                       obscureText: hidePassword,
                       decoration: new InputDecoration(
                         hintText: "Password",
@@ -189,19 +164,6 @@ class _SignIn extends State<SignIn> {
                         if (_formKey.currentState.validate()) {
                           await fetchData();
                         }
-                        // if (_pageController.page.toInt() == 0) {
-                        //print('Email: ${_emailTextController.text}');
-                        //print('Password: ${_passwordTextController.text}');
-
-                        //_setIsLogin();
-
-                        // print('_userDataMap $_userDataMap');
-
-                        // } else {
-                        //   _pageController.animateToPage(
-                        //       _pageController.page.toInt() + 1,
-                        //       duration: Duration(milliseconds: 200),
-                        //       curve: Curves.easeIn);
                       }),
                 ),
               ),
@@ -220,8 +182,6 @@ class _SignIn extends State<SignIn> {
       var bdata = jsonEncode({
         "trekkerEmail": "${_emailTextController.text}",
         "trekkerPassword": "${_passwordTextController.text}"
-        // "trekkerEmail": "9418017999",
-        // "trekkerPassword": "raj@12345"
       });
 
       Response resp = await http.post(url, headers: headers, body: bdata);
@@ -235,7 +195,10 @@ class _SignIn extends State<SignIn> {
             context,
             MaterialPageRoute(builder: (context) => MyNavBar()),
           );
-        } else {
+        } else
+        // (loginModel.message.status == "400");
+        {
+          print('Invalid Login');
           //
         }
       } else {
