@@ -15,6 +15,14 @@ class LoginResponseModel {
 class LoginRequestModel {
   String email;
   String password;
+  String confirmPassword;
+  String name;
+  String mobile;
+  String address;
+  String contact1name;
+  String contact1phoneno;
+  String contact2name;
+  String contact2phoneno;
 
   LoginRequestModel({
     this.email,
@@ -25,6 +33,7 @@ class LoginRequestModel {
     Map<String, dynamic> map = {
       'email': email.trim(),
       'password': password.trim(),
+      'confrimPassword': confirmPassword.trim(),
     };
 
     return map;

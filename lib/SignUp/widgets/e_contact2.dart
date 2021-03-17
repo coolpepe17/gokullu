@@ -1,5 +1,6 @@
 import 'package:contact_picker/contact_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../constant.dart';
 
@@ -13,6 +14,13 @@ class _EContact2State extends State<EContact2> {
 
   final ContactPicker _contactPicker = new ContactPicker();
   Contact _contact1;
+
+  setvalue() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('econtact2fullname', _contact1.fullName);
+    prefs.setString('econtact2phoneno', _contact1.phoneNumber.number);
+  }
+
   @override
   Widget build(BuildContext context) {
     // super.build(context);
@@ -39,25 +47,9 @@ class _EContact2State extends State<EContact2> {
                     Contact contact1 = await _contactPicker.selectContact();
                     setState(() {
                       _contact1 = contact1;
+                      setvalue();
                     });
                   },
-
-                  // Text('Choose Emergency Contact 1'),
-                  // decoration: InputDecoration(
-                  //   border: InputBorder.none,
-                  //   icon: Icon(Icons.person_add, size: 35),
-                  // ),
-                  // onPressed: () {
-                  //   var contactNumber = openContactBook();
-                  // },
-                  // validator: (String value) {
-                  //   if (!_formKey.currentState.validate()) {
-                  //     return 'Enter Emergency Contact 1 Name';
-                  //   } else {
-                  //     return null;
-                  //   }
-                  // },
-                  // controller: widget.eContact1TextController,
                 ),
               ),
               new Text(
@@ -70,7 +62,6 @@ class _EContact2State extends State<EContact2> {
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
-              // Divider(),
             ],
           ),
         ),
@@ -78,13 +69,5 @@ class _EContact2State extends State<EContact2> {
     );
   }
 
-  // void _passDataToParent(String key, dynamic value) {
-  //   List<dynamic> addData = List<dynamic>();
-  //   addData.add(key);
-  //   addData.add(value);
-  //   widget.parentAction(addData);
-  // }
-
-  @override
   bool get wantKeepAlive => true;
 }

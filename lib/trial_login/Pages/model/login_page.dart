@@ -149,11 +149,13 @@ class _LoginTrialState extends State<LoginTrial> {
                                     final snackBar = SnackBar(
                                         content: Text("Login Successful"));
                                     scaffoldKey.currentState
+                                        // ignore: deprecated_member_use
                                         .showSnackBar(snackBar);
                                   } else {
                                     final snackBar =
                                         SnackBar(content: Text(value.error));
                                     scaffoldKey.currentState
+                                        // ignore: deprecated_member_use
                                         .showSnackBar(snackBar);
                                   }
                                 }

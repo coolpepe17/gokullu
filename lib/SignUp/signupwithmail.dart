@@ -3,14 +3,17 @@ import 'package:gokullu/Database/database_helper.dart';
 import 'package:gokullu/SignUp/widgets/e_contact1.dart';
 import 'package:gokullu/SignUp/signupform.dart';
 import 'package:gokullu/SignUp/widgets/e_contact2.dart';
-import 'package:gokullu/screen/about/about_app.dart';
-import 'package:gokullu/widget/navbar.dart';
+import 'package:gokullu/userscreen/home.dart';
+// import 'package:gokullu/widget/navbar.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../constant.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
+
+// import '../constant.dart';
+// import '../signin.dart';
 
 Future<Album> fetchAlbum() async {
   final response =
@@ -57,13 +60,12 @@ class _SignUpWithMail extends State<SignUpWithMail> {
   final _nameTextController = TextEditingController();
   final _mobileTextController = TextEditingController();
   final _addressTextController = TextEditingController();
-  final _eContact1TextController = TextEditingController();
-  // final _ePhone1TextController = TextEditingController();
-  final _eContact2TextController = TextEditingController();
-  // final _ePhone2TextController = TextEditingController();
-  // final _introduceTextController = TextEditingController();
 
   Map<String, dynamic> _userDataMap = Map<String, dynamic>();
+  String contact1name;
+  String contact1phoneno;
+  String contact2name;
+  String contact2phoneno;
 
   // PageController _pageController = PageController();
 
@@ -81,16 +83,21 @@ class _SignUpWithMail extends State<SignUpWithMail> {
     await prefs.setBool('isLogin', true);
   }
 
+  _setcontact1() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    contact1name = prefs.getString('econtact1fullname');
+    contact1phoneno = prefs.getString('econtact1phoneno');
+  }
+
+  _setcontact2() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    contact2name = prefs.getString('econtact2fullname');
+    contact2phoneno = prefs.getString('econtact2phoneno');
+  }
+
   // reference to our single class that manages the database
   final dbHelper = DatabaseHelper.instance;
-
-  // @override
-  // void initState() {
-  //   _query();
-  //   _userDataMap['gender'] = 'Male';
-  //   _userDataMap['term'] = false;
-  //   super.initState();
-  // }
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -114,94 +121,49 @@ class _SignUpWithMail extends State<SignUpWithMail> {
                   border: Border.all(color: Colors.grey[400]),
                   borderRadius: BorderRadius.all(Radius.circular(15.0)),
                 ),
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          'Sign Up',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: 400,
-                      height: 380,
-                      child: SignUpForm(
-                          _emailTextController,
-                          _passwordTextController,
-                          _confirmPasswordTextController,
-                          _nameTextController,
-                          _mobileTextController,
-                          _addressTextController,
-                          _eContact1TextController,
-                          // _ePhone1TextController,
-                          _eContact2TextController,
-                          // _ePhone2TextController,
-                          _updateMyTitle),
-                      // EContact1(),
-                    ),
-                    SizedBox(
-                        child: Text(
-                      'Select 2 Emergency Contacts',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    )),
-                    EContact1(),
-                    EContact2(),
-                    Row(
-                      children: <Widget>[
-                        Flexible(
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.only(left: 8.0, right: 8.0),
-                            child: RaisedButton(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(12.0),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Text(
-                                    'Cancel',
-                                    style: TextStyle(fontSize: 20),
-                                  ),
-                                ],
-                              ),
-                              textColor: Colors.black,
-                              color: Colors.white,
-                              padding: EdgeInsets.all(10),
-                              onPressed: () {
-                                // print('email: ${_emailTextController.text}');
-                                // print(
-                                //     'password: ${_passwordTextController.text}');
-                                // print('name: ${_nameTextController.text}');
-                                // print(
-                                //     'confirmPassword: ${_confirmPasswordTextController.text}');
-                                // print('mobile: ${_mobileTextController.text}');
-                                // print('email: ${_addressTextController.text}');
-                                // print(
-                                //     'password: ${_eContact1TextController.text}');
-                                // print('name: ${_ePhone1TextController.text}');
-                                // print(
-                                //     'mobile: ${_eContact2TextController.text}');
-                                // print('intro: ${_ePhone2TextController.text}');
-
-                                // print('_userDataMap $_userDataMap');
-                                Navigator.pop(context);
-//                              _query();
-                              },
-                            ),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            'Sign Up',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                         ),
-                        Flexible(
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.only(left: 8.0, right: 8.0),
-                            child: RaisedButton(
+                      ),
+                      Container(
+                        width: 400,
+                        height: 380,
+                        child: SignUpForm(
+                            _emailTextController,
+                            _passwordTextController,
+                            _confirmPasswordTextController,
+                            _nameTextController,
+                            _mobileTextController,
+                            _addressTextController,
+                            _updateMyTitle),
+                      ),
+                      SizedBox(
+                          child: Text(
+                        'Select 2 Emergency Contacts',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      )),
+                      // Call for Emergency contacts
+                      EContact1(),
+                      EContact2(),
+                      Row(
+                        children: <Widget>[
+                          Flexible(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 8.0, right: 8.0),
+                              child: RaisedButton(
                                 shape: RoundedRectangleBorder(
                                   borderRadius: new BorderRadius.circular(12.0),
                                 ),
@@ -209,54 +171,92 @@ class _SignUpWithMail extends State<SignUpWithMail> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     Text(
-                                      _nextText,
+                                      'Cancel',
                                       style: TextStyle(fontSize: 20),
                                     ),
                                   ],
                                 ),
-                                textColor: Colors.white,
-                                color: _nextColor,
+                                textColor: Colors.black,
+                                color: Colors.white,
                                 padding: EdgeInsets.all(10),
                                 onPressed: () {
-                                  // if (_pageController.page.toInt() == 0) {
-                                  print('Email: ${_emailTextController.text}');
-                                  print(
-                                      'Password: ${_passwordTextController.text}');
-                                  print(
-                                      'Confirm Password: ${_confirmPasswordTextController.text}');
-                                  print('Name: ${_nameTextController.text}');
-                                  print(
-                                      'Mobile: ${_mobileTextController.text}');
-                                  print(
-                                      'Address: ${_addressTextController.text}');
-                                  // print(
-                                  //     'password: ${_eContact1TextController.text}');
-                                  // // print('name: ${_ePhone1TextController.text}');
-                                  // print(
-                                  //     'mobile: ${_eContact2TextController.text}');
-                                  // print(
-                                  //     'intro: ${_ePhone2TextController.text}');
-                                  // _insert();
-                                  _setIsLogin();
-
-                                  // print('_userDataMap $_userDataMap');
-
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => MyNavBar()),
-                                  );
-                                  // } else {
-                                  //   _pageController.animateToPage(
-                                  //       _pageController.page.toInt() + 1,
-                                  //       duration: Duration(milliseconds: 200),
-                                  //       curve: Curves.easeIn);
-                                }),
+                                  Navigator.pop(context);
+//                              _query();
+                                },
+                              ),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                          Flexible(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 8.0, right: 8.0),
+                              child: RaisedButton(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(12.0),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        _nextText,
+                                        style: TextStyle(fontSize: 20),
+                                      ),
+                                    ],
+                                  ),
+                                  textColor: Colors.white,
+                                  color: _nextColor,
+                                  padding: EdgeInsets.all(10),
+                                  onPressed: () async {
+                                    {
+                                      final snackBar = SnackBar(
+                                        behavior: SnackBarBehavior.floating,
+                                        duration: Duration(seconds: 10),
+                                        elevation: 10.0,
+                                        backgroundColor: mPrimaryTextColor,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(18),
+                                          // side: BorderSide(
+                                          //   color: Colors.green,
+                                          //   width: 2,
+                                          // ),
+                                        ),
+                                        content: Text(
+                                            'Registration Successful!',
+                                            style: TextStyle(fontSize: 18)),
+                                        action: SnackBarAction(
+                                          textColor: Colors.white,
+                                          label: 'Proceed to Login',
+                                          onPressed: () {
+                                            // Some code to undo the change.
+                                          },
+                                        ),
+                                      );
+
+                                      // Find the ScaffoldMessenger in the widget tree
+                                      // and use it to show a SnackBar.
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
+                                    }
+
+                                    if (_formKey.currentState.validate()) {
+                                      await fetchData();
+                                      // fetchData();
+                                      _setIsLogin();
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => MyHomePage()),
+                                      );
+                                    }
+                                  }),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -266,61 +266,59 @@ class _SignUpWithMail extends State<SignUpWithMail> {
     );
   }
 
-  // Button onPressed methods
+  // void _query() async {
+  //   final allRows = await dbHelper.queryAllRows();
+  //   print('query all rows:');
+  //   allRows.forEach((row) {
+  //     print(row);
 
-  // void _insert() async {
-  //   // row to insert
-  //   Map<String, dynamic> row = {
-  //     DatabaseHelper.columnName: _nameTextController.text,
-  //     // DatabaseHelper.columnGender: _userDataMap['gender'],
-  //     DatabaseHelper.columnEmail: _emailTextController.text,
-  //     DatabaseHelper.columnPassword: _passwordTextController.text,
-  //     DatabaseHelper.columnPassword: _confirmPasswordTextController.text,
-  //     // DatabaseHelper.columnAge: _userDataMap['age'],
-  //     DatabaseHelper.columnMobile: _mobileTextController.text,
-  //     DatabaseHelper.columnAddress: _addressTextController.text,
-  //     DatabaseHelper.columnEContact1: _eContact1TextController.text,
-  //     // DatabaseHelper.columnEPhone1: _ePhone1TextController.text,
-  //     DatabaseHelper.columnEContact2: _eContact2TextController.text,
-  //     // DatabaseHelper.columnEPhone2: _ePhone2TextController.text,
-
-  //     // DatabaseHelper.columnImageOne: _userDataMap['image0'],
-  //     // DatabaseHelper.columnImageTwo: _userDataMap['image1'],
-  //     // DatabaseHelper.columnImageThree: _userDataMap['image2'],
-  //     // DatabaseHelper.columnImageFour: _userDataMap['image3'],
-  //     // DatabaseHelper.columnImageIntro: _introduceTextController.text,
-  //   };
-  //   final id = await dbHelper.insert(row);
-  //   print('inserted row id: $id');
+  //     return null;
+  //   });
   // }
 
-  void _query() async {
-    final allRows = await dbHelper.queryAllRows();
-    print('query all rows:');
-    allRows.forEach((row) {
-      print(row);
-      // print('row age is ${row[DatabaseHelper.columnAge]}');
-      return null;
-    });
+//Pankaj
+  fetchData() async {
+    await _setcontact1();
+    await _setcontact2();
+    try {
+      String url = 'http://164.100.207.5/gokullu/Service1.svc/RegisterUser?';
+      Map<String, String> headers = {'Content-Type': 'application/json'};
+      var bdata = jsonEncode({
+        "trekkerEmail": "${_emailTextController.text}",
+        "trekkerPassword": "${_passwordTextController.text}",
+        "trekkerName": "${_nameTextController.text}",
+        "trekkerMobile": "${_mobileTextController.text}",
+        "trekkerGender": " ",
+        "trekkerAddress": "${_addressTextController.text}",
+        "emergencyContact1": contact1phoneno,
+        "emergencyName1": contact1name,
+        "emergencyContact2": contact2phoneno,
+        "emergencyName2": contact2name,
+        "loggedIn": "N",
+        "idDeleted": "N"
+      });
+
+      Response resp = await http.post(url, headers: headers, body: bdata);
+      if (resp.statusCode == 200) {
+        print('saved');
+        // var decoded = jsonDecode(resp.body);
+        // print(decoded);
+        // loginModel = loginModelFromJson(resp.body);
+        //   if (loginModel.message.status == "200") {
+        //     _setIsLogin();
+        //     Navigator.push(
+        //       context,
+        //       MaterialPageRoute(builder: (context) => MyNavBar()),
+        //     );
+        //   } else {
+        //     // error - Invalid user
+        //     // alert ('Invalid user, try again');
+
+        //   }
+        // } else {
+        //   // Error - Server connection not established
+        //   // alert
+      }
+    } catch (e) {}
   }
-
-// //Pankaj
-//   fetchData() async {
-//     try {
-//       String url = 'http://164.100.207.5/gokullu/Service1.svc/login?';
-//       Map<String, String> headers = {'Content-Type': 'application/json'};
-//       var bdata = jsonEncode({
-//         "trekkerEmail": "${_emailTextController.text}",
-//         "trekkerPassword": "${_passwordTextController.text}"
-//         // "trekkerEmail": "9418017999",
-//         // "trekkerPassword": "raj@12345"
-//       });
-
-//       Response resp = await http.post(url, headers: headers, body: bdata);
-//       if (resp.statusCode == 200) {
-//         var decoded = jsonDecode(resp.body);
-//         print(decoded);
-//       }
-//     } catch (e) {}
-//   }
 }

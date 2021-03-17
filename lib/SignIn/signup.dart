@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gokullu/SignUp/reg.dart';
 import 'package:gokullu/SignUp/signupwithmail.dart';
 import 'package:gokullu/constant.dart';
-
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:gokullu/screen/splash/splash_screen.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -52,7 +50,7 @@ class _SignUp extends State<SignUp> {
 //                    widget.parentAction(true);
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => SignUpWithMail()),
+                      MaterialPageRoute(builder: (context) => RegForm()),
                     );
                   },
                   child: new Icon(

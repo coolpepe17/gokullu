@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gokullu/screen/trek_menu/kullu_map.dart';
-import 'package:gokullu/screen/trek_menu/trek_menu.dart';
-import 'package:gokullu/widget/round_button.dart';
 import '../../../constant.dart';
 
 class KulluRoute extends StatefulWidget {
