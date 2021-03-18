@@ -23,43 +23,48 @@ class _EContact1State extends State<EContact1> {
   @override
   Widget build(BuildContext context) {
     // super.build(context);
-    return Container(
-      margin: const EdgeInsets.all(10.0),
-      padding: const EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey[400]),
-        borderRadius: BorderRadius.all(Radius.circular(25.0)),
-      ),
-      child: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: <Widget>[
-              SizedBox(
-                height: 50,
-                width: 360,
-                child: IconButton(
-                  icon: Icon(Icons.person_add, size: 40),
-                  // alignment: Alignment.topLeft,
-                  color: Colors.grey[600],
-                  onPressed: () async {
-                    Contact contact = await _contactPicker.selectContact();
-                    setState(() {
-                      _contact = contact;
-                      setvalue();
-                    });
-                  },
+    return SingleChildScrollView(
+      child: Container(
+        alignment: Alignment.center,
+        // margin: const EdgeInsets.all(5.0),
+        // padding: const EdgeInsets.all(4.0),
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey[400]),
+          borderRadius: BorderRadius.all(Radius.circular(25.0)),
+        ),
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 50,
+                  width: 360,
+                  child: IconButton(
+                    icon: Icon(Icons.person_add, size: 40),
+                    // alignment: Alignment.topLeft,
+                    color: Colors.grey[600],
+                    onPressed: () async {
+                      Contact contact = await _contactPicker.selectContact();
+                      setState(() {
+                        _contact = contact;
+                        setvalue();
+                      });
+                    },
+                  ),
                 ),
-              ),
-              new Text(
-                _contact == null ? 'No contact selected.' : _contact.toString(),
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: mPrimaryColor,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold),
-              ),
-            ],
+                new Text(
+                  _contact == null
+                      ? 'No contact selected.'
+                      : _contact.toString(),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: mPrimaryColor,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
           ),
         ),
       ),

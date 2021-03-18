@@ -25,8 +25,8 @@ class _EContact2State extends State<EContact2> {
   Widget build(BuildContext context) {
     // super.build(context);
     return Container(
-      margin: const EdgeInsets.all(10.0),
-      padding: const EdgeInsets.all(8.0),
+      // margin: const EdgeInsets.all(10.0),
+      // padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey[400]),
         borderRadius: BorderRadius.all(Radius.circular(25.0)),

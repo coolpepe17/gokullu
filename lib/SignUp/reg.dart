@@ -1,11 +1,14 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:gokullu/Database/database_helper.dart';
 import 'package:gokullu/SignUp/widgets/e_contact1.dart';
+import 'package:gokullu/SignUp/widgets/e_contact2.dart';
 import 'package:gokullu/constant.dart';
 import 'package:gokullu/model/login_model.dart';
 import 'package:gokullu/trial_login/model/login_model.dart';
-import 'package:gokullu/widget/navbar.dart';
+import 'package:gokullu/userscreen/home.dart';
+// import 'package:gokullu/widget/navbar.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,10 +19,18 @@ class RegForm extends StatefulWidget {
 }
 
 class _RegForm extends State<RegForm> {
-  final _formKey = GlobalKey<FormState>();
   final _emailTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
   final _confirmPasswordTextController = TextEditingController();
+  final _nameTextController = TextEditingController();
+  final _mobileTextController = TextEditingController();
+  final _addressTextController = TextEditingController();
+
+  Map<String, dynamic> _userDataMap = Map<String, dynamic>();
+  String contact1name;
+  String contact1phoneno;
+  String contact2name;
+  String contact2phoneno;
   bool hidePassword = true;
   bool isApiCallProcess = false;
   LoginRequestModel loginRequestModel;
@@ -30,16 +41,37 @@ class _RegForm extends State<RegForm> {
     await prefs.setBool('isLogin', true);
   }
 
+  _setcontact1() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    contact1name = prefs.getString('econtact1fullname');
+    contact1phoneno = prefs.getString('econtact1phoneno');
+  }
+
+  _setcontact2() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    contact2name = prefs.getString('econtact2fullname');
+    contact2phoneno = prefs.getString('econtact2phoneno');
+  }
+
+  // reference to our single class that manages the database
+  final dbHelper = DatabaseHelper.instance;
+  final _formKey = GlobalKey<FormState>();
+
   @override
   void dispose() {
     _emailTextController.dispose();
     _passwordTextController.dispose();
+    _confirmPasswordTextController.dispose();
+    _nameTextController.dispose();
+    _mobileTextController.dispose();
+    _addressTextController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Container(
           margin: const EdgeInsets.fromLTRB(10, 70, 10, 10),
@@ -57,7 +89,7 @@ class _RegForm extends State<RegForm> {
                   alignment: Alignment.center,
                   child: Text(
                     'Sign Up',
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -78,10 +110,9 @@ class _RegForm extends State<RegForm> {
                         child: TextFormField(
                           keyboardType: TextInputType.emailAddress,
                           onSaved: (input) => loginRequestModel.email = input,
-                          validator: (input) => input.length < 1
-                              // validator: (input) =>!input.contains('@')
-                              ? 'Email Required'
-                              : null,
+                          // validator: (input) => input.length < 1
+                          validator: (input) =>
+                              !input.contains('@') ? 'Email Required' : null,
                           decoration: new InputDecoration(
                             hintText: 'Enter Email',
                             enabledBorder: UnderlineInputBorder(
@@ -111,8 +142,8 @@ class _RegForm extends State<RegForm> {
                           keyboardType: TextInputType.text,
                           onSaved: (input) =>
                               loginRequestModel.password = input,
-                          validator: (input) => input.length < 1
-                              ? 'Password cannot be empty'
+                          validator: (input) => input.length < 9
+                              ? 'Password should be 8 characters or more'
                               : null,
                           obscureText: hidePassword,
                           decoration: new InputDecoration(
@@ -160,6 +191,14 @@ class _RegForm extends State<RegForm> {
                           validator: (input) => input.length < 1
                               ? 'Confirm Password cannot be empty'
                               : null,
+                          // validator: (input) {
+                          //   if (widget._passwordTextController.value ==
+                          //       widget._confirmPasswordTextController.value) {
+                          //     return 'Password is required';
+                          //   } else {
+                          //     return null;
+                          //   }
+                          // }
                           obscureText: hidePassword,
                           decoration: new InputDecoration(
                             hintText: 'Confirm Password',
@@ -204,7 +243,7 @@ class _RegForm extends State<RegForm> {
                           onSaved: (input) => loginRequestModel.name = input,
                           validator: (input) =>
                               input.length < 1 ? 'Name cannot be empty' : null,
-                          obscureText: hidePassword,
+                          // obscureText: hidePassword,
                           decoration: new InputDecoration(
                             hintText: 'Enter Your Name',
                             enabledBorder: UnderlineInputBorder(
@@ -220,7 +259,7 @@ class _RegForm extends State<RegForm> {
                               color: Theme.of(context).accentColor,
                             ),
                           ),
-                          controller: _confirmPasswordTextController,
+                          controller: _nameTextController,
                         ),
                       ),
                       Divider(),
@@ -236,7 +275,7 @@ class _RegForm extends State<RegForm> {
                           validator: (input) => input.length < 1
                               ? 'Mobile can not be empty'
                               : null,
-                          obscureText: hidePassword,
+                          // obscureText: hidePassword,
                           decoration: new InputDecoration(
                             hintText: 'Enter Mobile No.',
                             enabledBorder: UnderlineInputBorder(
@@ -252,7 +291,7 @@ class _RegForm extends State<RegForm> {
                               color: Theme.of(context).accentColor,
                             ),
                           ),
-                          controller: _confirmPasswordTextController,
+                          controller: _mobileTextController,
                         ),
                       ),
                       Divider(),
@@ -268,7 +307,7 @@ class _RegForm extends State<RegForm> {
                           validator: (input) => input.length < 1
                               ? 'Address Field can not be empty'
                               : null,
-                          obscureText: hidePassword,
+                          // obscureText: hidePassword,
                           decoration: new InputDecoration(
                             hintText: 'Enter Your Address',
                             enabledBorder: UnderlineInputBorder(
@@ -284,14 +323,30 @@ class _RegForm extends State<RegForm> {
                               color: Theme.of(context).accentColor,
                             ),
                           ),
-                          controller: _confirmPasswordTextController,
+                          controller: _addressTextController,
                         ),
                       ),
                     ],
                   ),
                 ),
               ),
-              // Row(children: <Widget>[EContact1]),
+
+              // Emergency Contact 1
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    EContact1(),
+                  ]),
+
+              SizedBox(height: 8),
+
+              // Emergency Contact 2
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    EContact2(),
+                  ]),
+              SizedBox(height: 15),
               Row(
                 children: <Widget>[
                   Flexible(
@@ -307,7 +362,7 @@ class _RegForm extends State<RegForm> {
                             children: <Widget>[
                               Text(
                                 'Submit Sign Up',
-                                style: TextStyle(fontSize: 25),
+                                style: TextStyle(fontSize: 20),
                               ),
                             ],
                           ),
@@ -316,8 +371,54 @@ class _RegForm extends State<RegForm> {
                           padding: EdgeInsets.all(10),
                           onPressed: () async {
                             if (_formKey.currentState.validate()) {
+                              final snackBar = SnackBar(
+                                behavior: SnackBarBehavior.floating,
+                                duration: Duration(seconds: 10),
+                                elevation: 10.0,
+                                backgroundColor: mPrimaryTextColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18),
+                                  // side: BorderSide(
+                                  //   color: Colors.green,
+                                  //   width: 2,
+                                  // ),
+                                ),
+                                content: Text('Registration Successful!',
+                                    style: TextStyle(fontSize: 15)),
+                                action: SnackBarAction(
+                                  textColor: Colors.white,
+                                  label: 'Proceed to Login',
+                                  onPressed: () {
+                                    // Some code to undo the change.
+                                  },
+                                ),
+                              );
+
+                              // Find the ScaffoldMessenger in the widget tree
+                              // and use it to show a SnackBar.
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
                               await fetchData();
+                              // fetchData();
+                              _setIsLogin();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MyHomePage()),
+                              );
                             }
+                            {}
+
+                            // if (_formKey.currentState.validate()) {
+                            //   await fetchData();
+                            //   // fetchData();
+                            //   _setIsLogin();
+                            //   Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => MyHomePage()),
+                            //   );
+                            // }
                           }),
                     ),
                   ),
@@ -332,33 +433,47 @@ class _RegForm extends State<RegForm> {
 
   //Pankaj
   fetchData() async {
+    await _setcontact1();
+    await _setcontact2();
     try {
-      String url = 'http://164.100.207.5/gokullu/Service1.svc/login?';
+      String url = 'http://164.100.207.5/gokullu/Service1.svc/RegisterUser?';
       Map<String, String> headers = {'Content-Type': 'application/json'};
       var bdata = jsonEncode({
-        'trekkerEmail': '${_emailTextController.text}',
-        'trekkerPassword': '${_passwordTextController.text}'
+        "trekkerEmail": "${_emailTextController.text}",
+        "trekkerPassword": "${_passwordTextController.text}",
+        "trekkerConfirmPassword": "${_confirmPasswordTextController.text}",
+        "trekkerName": "${_nameTextController.text}",
+        "trekkerMobile": "${_mobileTextController.text}",
+        "trekkerGender": " ",
+        "trekkerAddress": "${_addressTextController.text}",
+        "emergencyContact1": contact1phoneno,
+        "emergencyName1": contact1name,
+        "emergencyContact2": contact2phoneno,
+        "emergencyName2": contact2name,
+        "loggedIn": "N",
+        "idDeleted": "N"
       });
 
       Response resp = await http.post(url, headers: headers, body: bdata);
       if (resp.statusCode == 200) {
-        var decoded = jsonDecode(resp.body);
-        print(decoded);
-        loginModel = loginModelFromJson(resp.body);
-        if (loginModel.message.status == '200') {
-          _setIsLogin();
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => MyNavBar()),
-          );
-        } else
-        // (loginModel.message.status == '400');
-        {
-          print('Invalid Login');
-          //
-        }
-      } else {
-        //
+        print('saved');
+        // var decoded = jsonDecode(resp.body);
+        // print(decoded);
+        // loginModel = loginModelFromJson(resp.body);
+        //   if (loginModel.message.status == "200") {
+        //     _setIsLogin();
+        //     Navigator.push(
+        //       context,
+        //       MaterialPageRoute(builder: (context) => MyNavBar()),
+        //     );
+        //   } else {
+        //     // error - Invalid user
+        //     // alert ('Invalid user, try again');
+
+        //   }
+        // } else {
+        //   // Error - Server connection not established
+        //   // alert
       }
     } catch (e) {}
   }
