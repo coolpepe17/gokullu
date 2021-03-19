@@ -47,12 +47,12 @@ class MyNavBar extends StatefulWidget {
 }
 
 class _MyNavBarState extends State<MyNavBar> {
-  int _currentIndex = 1;
+  int _currentIndex = 0;
   final List<Widget> _children = [
-    AboutUs(),
     AboutApp(),
     KulluRoute(),
     TrekMenu(),
+    AboutUs(),
   ];
 
   void onTappedBar(int index) {
@@ -67,18 +67,18 @@ class _MyNavBarState extends State<MyNavBar> {
         body: _children[_currentIndex],
         bottomNavigationBar: CurvedNavigationBar(
           onTap: onTappedBar,
-          index: 1,
+          index: 0,
           color: mPrimaryColor,
           backgroundColor: Colors.white,
           buttonBackgroundColor: mPrimaryColor,
-          height: 70,
+          height: 55,
           animationDuration: Duration(milliseconds: 300),
-          animationCurve: Curves.ease,
+          animationCurve: Curves.decelerate,
           items: <Widget>[
-            Icon(Icons.alternate_email_outlined, size: 35, color: Colors.white),
             Icon(Icons.home_rounded, size: 35, color: Colors.white),
             Icon(Icons.bus_alert, size: 35, color: Colors.white),
             Icon(Icons.terrain_rounded, size: 35, color: Colors.white),
+            Icon(Icons.alternate_email_outlined, size: 35, color: Colors.white),
             // Icon(Icons.alternate_email_outlined, size: 30, color: Colors.white),
           ],
           // animationDuration: Duration(milliseconds: 300),

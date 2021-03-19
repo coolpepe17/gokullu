@@ -142,7 +142,7 @@ class _RegForm extends State<RegForm> {
                           keyboardType: TextInputType.text,
                           onSaved: (input) =>
                               loginRequestModel.password = input,
-                          validator: (input) => input.length < 9
+                          validator: (input) => input.length < 8
                               ? 'Password should be 8 characters or more'
                               : null,
                           obscureText: hidePassword,
