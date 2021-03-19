@@ -1,4 +1,4 @@
-package com.example.gokullu
+package nic.kullhp.gokullu
 
 import io.flutter.embedding.android.FlutterActivity
 

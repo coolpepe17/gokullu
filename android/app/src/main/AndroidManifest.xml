@@ -1,9 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.gokullu">
+    package="nic.kullhp.gokullu">
    
    <uses-permission android:name="android.permission.INTERNET"/>
    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
    <application
+        android:name="nic.kullhp.gokullu"
         android:label="GO Kullu"
         android:icon="@mipmap/ic_launcher">
         <activity

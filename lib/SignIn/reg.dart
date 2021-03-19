@@ -2,13 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:gokullu/Database/database_helper.dart';
-import 'package:gokullu/SignUp/widgets/e_contact1.dart';
-import 'package:gokullu/SignUp/widgets/e_contact2.dart';
+import 'package:gokullu/SignIn/widgets/e_contact1.dart';
+import 'package:gokullu/SignIn/widgets/e_contact2.dart';
 import 'package:gokullu/constant.dart';
 import 'package:gokullu/model/login_model.dart';
 import 'package:gokullu/trial_login/model/login_model.dart';
 import 'package:gokullu/userscreen/home.dart';
-// import 'package:gokullu/widget/navbar.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,6 +25,7 @@ class _RegForm extends State<RegForm> {
   final _mobileTextController = TextEditingController();
   final _addressTextController = TextEditingController();
 
+  // ignore: unused_field
   Map<String, dynamic> _userDataMap = Map<String, dynamic>();
   String contact1name;
   String contact1phoneno;

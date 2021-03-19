@@ -38,6 +38,8 @@ dependencies:
   curved_navigation_bar: ^0.3.7
   contact_picker: ^0.0.2
   http: ^0.12.2
+  change_app_package_name: ^0.1.2
+  
 
 
 #dependency_overrides:
