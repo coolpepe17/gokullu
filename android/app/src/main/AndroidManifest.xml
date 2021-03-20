@@ -2,10 +2,16 @@
     package="nic.kulluhp.gokullu">
    
    <uses-permission android:name="android.permission.INTERNET"/>
-   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+   <!-- <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/> -->
    <application
         android:label="GO Kullu"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true"
+        android:allowBackup="false" 
+        android:exported="false"
+        android:fullBackupOnly="false"
+        android:fullBackupContent="false"
+        >
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

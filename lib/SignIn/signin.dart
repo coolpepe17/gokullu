@@ -203,6 +203,15 @@ class _SignIn extends State<SignIn> {
       Response resp = await http.post(url, headers: headers, body: bdata);
       if (resp.statusCode == 200) {
         var decoded = jsonDecode(resp.body);
+        // await showDialog(
+        //     context: context,
+        //     builder: (BuildContext context) {
+        //       return AlertDialog(
+        //         actions: [
+        //           Text('$decoded'),
+        //         ],
+        //       );
+        //     });
         print(decoded);
         loginModel = loginModelFromJson(resp.body);
         if (loginModel.message.status == "200") {
@@ -218,8 +227,27 @@ class _SignIn extends State<SignIn> {
           //
         }
       } else {
+        // await showDialog(
+        //     context: context,
+        //     builder: (BuildContext context) {
+        //       return AlertDialog(
+        //         actions: [
+        //           Text(resp.statusCode.toString()),
+        //         ],
+        //       );
+        //     });
         //
       }
-    } catch (e) {}
+    } catch (e) {
+      // await showDialog(
+      //     context: context,
+      //     builder: (BuildContext context) {
+      //       return AlertDialog(
+      //         actions: [
+      //           Text(e.toString()),
+      //         ],
+      //       );
+      //     });
+    }
   }
 }
