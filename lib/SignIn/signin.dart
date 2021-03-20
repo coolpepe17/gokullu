@@ -142,7 +142,23 @@ class _SignIn extends State<SignIn> {
             children: <Widget>[
               Flexible(
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                    padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                    // child: ElevatedButton(
+                    //   child: Text('Sign In'),
+                    //   style: ElevatedButton.styleFrom(
+                    //     primary: mPrimaryTextColor,
+                    //     onPrimary: Colors.white,
+                    //     shape: const BeveledRectangleBorder(
+                    //         borderRadius:
+                    //             BorderRadius.all(Radius.circular(12))),
+                    //   ),
+                    //   onPressed: () async {
+                    //     if (_formKey.currentState.validate()) {
+                    //       await fetchData();
+                    //     }
+                    //   },
+                    // )
+
                   child: RaisedButton(
                       shape: RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(12.0),
@@ -165,7 +181,7 @@ class _SignIn extends State<SignIn> {
                           await fetchData();
                         }
                       }),
-                ),
+                    ),
               ),
             ],
           ),

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gokullu/SignUp/reg.dart';
-import 'package:gokullu/SignUp/signupwithmail.dart';
 import 'package:gokullu/constant.dart';
-// import 'package:gokullu/screen/splash/splash_screen.dart';
 
 class SignUp extends StatefulWidget {
   @override

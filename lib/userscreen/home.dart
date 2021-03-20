@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gokullu/SignIn/mainlogo.dart';
 import 'package:gokullu/SignIn/signin.dart';
 import 'package:gokullu/SignIn/signup.dart';
-import 'package:gokullu/SignUp/reg.dart';
 import 'package:gokullu/widget/navbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
