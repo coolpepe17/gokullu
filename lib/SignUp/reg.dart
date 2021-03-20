@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:gokullu/Database/database_helper.dart';
+// import 'package:gokullu/SignUp/widgets/e_contact1.dart';
+// import 'package:gokullu/SignUp/widgets/e_contact2.dart';
 import 'package:gokullu/constant.dart';
 import 'package:gokullu/model/login_model.dart';
 import 'package:gokullu/trial_login/model/login_model.dart';
@@ -330,21 +332,21 @@ class _RegForm extends State<RegForm> {
               ),
 
               // Emergency Contact 1
-              // Row(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     children: <Widget>[
-              //       EContact1(),
-              //     ]),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    // EContact1(),
+                  ]),
 
-              // SizedBox(height: 8),
+              SizedBox(height: 8),
 
               // // Emergency Contact 2
-              // Row(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     children: <Widget>[
-              //       EContact2(),
-              //     ]),
-              // SizedBox(height: 15),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    // EContact2(),
+                  ]),
+              SizedBox(height: 15),
               Row(
                 children: <Widget>[
                   Flexible(
@@ -444,10 +446,14 @@ class _RegForm extends State<RegForm> {
         "trekkerMobile": "${_mobileTextController.text}",
         "trekkerGender": " ",
         "trekkerAddress": "${_addressTextController.text}",
-        "emergencyContact1": contact1phoneno,
-        "emergencyName1": contact1name,
-        "emergencyContact2": contact2phoneno,
-        "emergencyName2": contact2name,
+        "emergencyContact1": '9999999999',
+        "emergencyName1": 'contact1name',
+        "emergencyContact2": '1111111111',
+        "emergencyName2": 'contact2name',
+        // "emergencyContact1": contact1phoneno,
+        // "emergencyName1": contact1name,
+        // "emergencyContact2": contact2phoneno,
+        // "emergencyName2": contact2name,
         "loggedIn": "N",
         "idDeleted": "N"
       });
