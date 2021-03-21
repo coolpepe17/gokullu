@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'Pages/model/login_page.dart';
+// import 'Pages/model/login_page.dart';
 
 class LogHome extends StatelessWidget {
   @override
@@ -30,7 +30,7 @@ class LogHome extends StatelessWidget {
           ),
         ),
       ),
-      home: LoginTrial(),
+      // home: LoginTrial(),
     );
   }
 }

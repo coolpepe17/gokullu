@@ -1,9 +1,170 @@
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
-// import 'package:gokullu/trial_login/api/api_service.dart';
-// import 'package:gokullu/trial_login/model/login_model.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+// import 'package:gokullu/screen/About/about_app.dart';
 
-// import '../ProgressHUD.dart';
+import 'Pages/custom_widget.dart';
+// import 'package:gokullu/trial_login/api/api.dart';
+
+// import 'Pages/custom_widget.dart';
+
+// ----------------------------------------------------------------
+
+class SignUp extends StatefulWidget {
+  @override
+  _SignUpState createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
+  final _formKey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+  final mobileController = TextEditingController();
+
+  String message = '';
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    mobileController.dispose();
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0.0),
+      body: Column(children: <Widget>[
+        SingleChildScrollView(
+          child: LogoImage(
+            imgHeight: MediaQuery.of(context).size.height * 0.15,
+          ),
+        ),
+        Expanded(
+            child: ListView(
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: <Widget>[
+                      TextFormField(
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(
+                            labelText: 'Email',
+                            labelStyle:
+                                TextStyle(fontSize: 14, color: Colors.purple)),
+                        controller: emailController,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Email cannot be empty';
+                          }
+                          return null;
+                        },
+                      ),
+                      TextFormField(
+                        obscureText: true,
+                        decoration: InputDecoration(
+                            labelText: 'Password',
+                            labelStyle:
+                                TextStyle(fontSize: 14, color: Colors.purple)),
+                        controller: passwordController,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Password cannot be empty';
+                          }
+                          return null;
+                        },
+                      ),
+                      TextFormField(
+                        obscureText: true,
+                        decoration: InputDecoration(
+                            labelText: 'Confirm Password',
+                            labelStyle:
+                                TextStyle(fontSize: 14, color: Colors.purple)),
+                        controller: confirmPasswordController,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Password cannot be empty';
+                          }
+                          return null;
+                        },
+                      ),
+                      TextFormField(
+                        keyboardType: TextInputType.phone,
+                        // obscureText: true,
+                        decoration: InputDecoration(
+                            labelText: 'Mobile No.',
+                            labelStyle:
+                                TextStyle(fontSize: 14, color: Colors.purple)),
+                        controller: mobileController,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Mobile cannot be empty';
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(height: 50),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: <Widget>[
+                      //     Text('New User?'),
+                      //     FlatButton(
+                      //       child: Text(
+                      //         'SignUp',
+                      //         style: TextStyle(
+                      //             fontSize: 18, color: mPrimaryTextColor),
+                      //       ),
+                      //       onPressed: () {},
+                      //     )
+                      //   ],
+                      // ),
+                      CustomButton(
+                        onBtnPressed: () async {
+                          // if (_formKey.currentState.validate()) {
+                          //   var email = emailController.text;
+                          //   var password = passwordController.text;
+                          //   setState(() {
+                          //     message = 'Please wait...';
+                          //   });
+                          //   var rsp = await loginUser(email, password);
+                          //   print(rsp);
+                          //   if (rsp.containsKey('status')) {
+                          //     setState(() {
+                          //       message = rsp['status_text'];
+                          //     });
+                          //     if (rsp['status'] == 1) {
+                          //       Navigator.push(context,
+                          //           MaterialPageRoute(builder: (context) {
+                          //         return AboutApp();
+                          //       }));
+                          //     }
+                          //   }
+                          // }
+                        },
+                        btnText: 'Register',
+                      ),
+                      SizedBox(height: 10),
+                      Text(message),
+                      SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                      )
+                    ],
+                  ),
+                ))
+          ],
+        ))
+      ]),
+    );
+  }
+}
+
+// ----------------------------------------------------------------
 
 // class LoginTrial extends StatefulWidget {
 //   @override
@@ -149,13 +310,11 @@
 //                                     final snackBar = SnackBar(
 //                                         content: Text("Login Successful"));
 //                                     scaffoldKey.currentState
-//                                         // ignore: deprecated_member_use
 //                                         .showSnackBar(snackBar);
 //                                   } else {
 //                                     final snackBar =
 //                                         SnackBar(content: Text(value.error));
 //                                     scaffoldKey.currentState
-//                                         // ignore: deprecated_member_use
 //                                         .showSnackBar(snackBar);
 //                                   }
 //                                 }

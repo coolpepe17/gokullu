@@ -6,7 +6,7 @@ class TrekMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: buildAppBar(context),
+      appBar: buildAppBar(context),
       body: ListView.builder(
         itemCount: trekNames.length,
         itemBuilder: (context, index) => TrekSelect(
@@ -27,15 +27,15 @@ class TrekMenu extends StatelessWidget {
           color: mPrimaryTextColor,
         ),
       ),
-      leading: IconButton(
-        icon: Icon(
-          Icons.arrow_back_ios,
-          color: mPrimaryTextColor,
-        ),
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      ),
+      // leading: IconButton(
+      //   icon: Icon(
+      //     Icons.arrow_back_ios,
+      //     color: mPrimaryTextColor,
+      //   ),
+      //   onPressed: () {
+      //     Navigator.pop(context);
+      //   },
+      // ),
       bottom: PreferredSize(
         child: Divider(
           height: 1,
