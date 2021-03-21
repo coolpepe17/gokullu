@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:gokullu/Database/database_helper.dart';
+import 'package:gokullu/SignUp/widgets/e_contact1.dart';
+import 'package:gokullu/SignUp/widgets/e_contact2.dart';
 // import 'package:gokullu/SignUp/widgets/e_contact1.dart';
 // import 'package:gokullu/SignUp/widgets/e_contact2.dart';
 import 'package:gokullu/constant.dart';
@@ -335,7 +337,7 @@ class _RegForm extends State<RegForm> {
               Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    // EContact1(),
+                    EContact1(),
                   ]),
 
               SizedBox(height: 8),
@@ -344,7 +346,7 @@ class _RegForm extends State<RegForm> {
               Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    // EContact2(),
+                    EContact2(),
                   ]),
               SizedBox(height: 15),
               Row(
