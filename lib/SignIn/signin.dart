@@ -142,46 +142,29 @@ class _SignIn extends State<SignIn> {
             children: <Widget>[
               Flexible(
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                  // child: ElevatedButton(
-                  //   child: Text('Sign In'),
-                  //   style: ElevatedButton.styleFrom(
-                  //     primary: mPrimaryTextColor,
-                  //     onPrimary: Colors.white,
-                  //     shape: const BeveledRectangleBorder(
-                  //         borderRadius:
-                  //             BorderRadius.all(Radius.circular(12))),
-                  //   ),
-                  //   onPressed: () async {
-                  //     if (_formKey.currentState.validate()) {
-                  //       await fetchData();
-                  //     }
-                  //   },
-                  // )
-
-                  child: RaisedButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(12.0),
-//                    side: BorderSide(color: Colors.red)
+                    padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                    child: Center(
+                      child: ElevatedButton(
+                        child: Text(
+                          'Sign In',
+                          style: TextStyle(fontSize: 25),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          elevation: 10,
+                          primary: mPrimaryTextColor,
+                          onPrimary: Colors.white,
+                          padding: EdgeInsets.fromLTRB(100, 12, 100, 12),
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15))),
+                        ),
+                        onPressed: () async {
+                          if (_formKey.currentState.validate()) {
+                            await fetchData();
+                          }
+                        },
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            'Sign in',
-                            style: TextStyle(fontSize: 25),
-                          ),
-                        ],
-                      ),
-                      textColor: Colors.white,
-                      color: mPrimaryColor,
-                      padding: EdgeInsets.all(10),
-                      onPressed: () async {
-                        if (_formKey.currentState.validate()) {
-                          await fetchData();
-                        }
-                      }),
-                ),
+                    )),
               ),
             ],
           ),

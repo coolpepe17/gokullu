@@ -353,79 +353,154 @@ class _RegForm extends State<RegForm> {
                 children: <Widget>[
                   Flexible(
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                      child: RaisedButton(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(12.0),
-//                    side: BorderSide(color: Colors.red)
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
+                        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                        child: Center(
+                          child: ElevatedButton(
+                              child: Text(
                                 'Submit Sign Up',
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(fontSize: 25),
                               ),
-                            ],
-                          ),
-                          textColor: Colors.white,
-                          color: mPrimaryColor,
-                          padding: EdgeInsets.all(10),
-                          onPressed: () async {
-                            if (_formKey.currentState.validate()) {
-                              final snackBar = SnackBar(
-                                behavior: SnackBarBehavior.floating,
-                                duration: Duration(seconds: 10),
-                                elevation: 10.0,
-                                backgroundColor: mPrimaryTextColor,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18),
-                                  // side: BorderSide(
-                                  //   color: Colors.green,
-                                  //   width: 2,
-                                  // ),
-                                ),
-                                content: Text('Registration Successful!',
-                                    style: TextStyle(fontSize: 15)),
-                                action: SnackBarAction(
-                                  textColor: Colors.white,
-                                  label: 'Proceed to Login',
-                                  onPressed: () {
-                                    // Some code to undo the change.
-                                  },
-                                ),
-                              );
+                              style: ElevatedButton.styleFrom(
+                                elevation: 10,
+                                primary: mPrimaryTextColor,
+                                onPrimary: Colors.white,
+                                padding: EdgeInsets.fromLTRB(70, 12, 70, 12),
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(15))),
+                              ),
+                              onPressed: () async {
+                                if (_formKey.currentState.validate()) {
+                                  final snackBar = SnackBar(
+                                    behavior: SnackBarBehavior.floating,
+                                    duration: Duration(seconds: 5),
+                                    elevation: 10.0,
+                                    backgroundColor: mPrimaryTextColor,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18),
+                                      // side: BorderSide(
+                                      //   color: Colors.green,
+                                      //   width: 2,
+                                      // ),
+                                    ),
+                                    content: Text('Registration Successful!',
+                                        style: TextStyle(fontSize: 15)),
+                                    action: SnackBarAction(
+                                      textColor: Colors.white,
+                                      label: 'Login to Proceed',
+                                      onPressed: () {
+                                        // Some code to undo the change.
+                                      },
+                                    ),
+                                  );
 
-                              // Find the ScaffoldMessenger in the widget tree
-                              // and use it to show a SnackBar.
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                              await fetchData();
-                              // fetchData();
-                              _setIsLogin();
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => MyHomePage()),
-                              );
-                            }
-                            {}
+                                  // Find the ScaffoldMessenger in the widget tree
+                                  // and use it to show a SnackBar.
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                  await fetchData();
+                                  // fetchData();
+                                  _setIsLogin();
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => MyHomePage()),
+                                  );
+                                }
+                                {}
 
-                            // if (_formKey.currentState.validate()) {
-                            //   await fetchData();
-                            //   // fetchData();
-                            //   _setIsLogin();
-                            //   Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => MyHomePage()),
-                            //   );
-                            // }
-                          }),
-                    ),
+                                // if (_formKey.currentState.validate()) {
+                                //   await fetchData();
+                                //   // fetchData();
+                                //   _setIsLogin();
+                                //   Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) => MyHomePage()),
+                                //   );
+                                // }
+                              }),
+                        )),
                   ),
                 ],
               ),
+//               Row(
+//                 children: <Widget>[
+//                   Flexible(
+//                     child: Padding(
+//                       padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+//                       child: RaisedButton(
+//                           shape: RoundedRectangleBorder(
+//                             borderRadius: new BorderRadius.circular(12.0),
+// //                    side: BorderSide(color: Colors.red)
+//                           ),
+//                           child: Row(
+//                             mainAxisAlignment: MainAxisAlignment.center,
+//                             children: <Widget>[
+//                               Text(
+//                                 'Submit Sign Up',
+//                                 style: TextStyle(fontSize: 20),
+//                               ),
+//                             ],
+//                           ),
+//                           textColor: Colors.white,
+//                           color: mPrimaryColor,
+//                           padding: EdgeInsets.all(10),
+//                           onPressed: () async {
+//                             if (_formKey.currentState.validate()) {
+//                               final snackBar = SnackBar(
+//                                 behavior: SnackBarBehavior.floating,
+//                                 duration: Duration(seconds: 10),
+//                                 elevation: 10.0,
+//                                 backgroundColor: mPrimaryTextColor,
+//                                 shape: RoundedRectangleBorder(
+//                                   borderRadius: BorderRadius.circular(18),
+//                                   // side: BorderSide(
+//                                   //   color: Colors.green,
+//                                   //   width: 2,
+//                                   // ),
+//                                 ),
+//                                 content: Text('Registration Successful!',
+//                                     style: TextStyle(fontSize: 15)),
+//                                 action: SnackBarAction(
+//                                   textColor: Colors.white,
+//                                   label: 'Proceed to Login',
+//                                   onPressed: () {
+//                                     // Some code to undo the change.
+//                                   },
+//                                 ),
+//                               );
+
+//                               // Find the ScaffoldMessenger in the widget tree
+//                               // and use it to show a SnackBar.
+//                               ScaffoldMessenger.of(context)
+//                                   .showSnackBar(snackBar);
+//                               await fetchData();
+//                               // fetchData();
+//                               _setIsLogin();
+//                               Navigator.push(
+//                                 context,
+//                                 MaterialPageRoute(
+//                                     builder: (context) => MyHomePage()),
+//                               );
+//                             }
+//                             {}
+
+//                             // if (_formKey.currentState.validate()) {
+//                             //   await fetchData();
+//                             //   // fetchData();
+//                             //   _setIsLogin();
+//                             //   Navigator.push(
+//                             //     context,
+//                             //     MaterialPageRoute(
+//                             //         builder: (context) => MyHomePage()),
+//                             //   );
+//                             // }
+// //                           }),
+//                     ),
+//                   ),
+//                 ],
+//               ),
             ],
           ),
         ),
@@ -448,14 +523,14 @@ class _RegForm extends State<RegForm> {
         "trekkerMobile": "${_mobileTextController.text}",
         "trekkerGender": " ",
         "trekkerAddress": "${_addressTextController.text}",
-        "emergencyContact1": '9999999999',
-        "emergencyName1": 'contact1name',
-        "emergencyContact2": '1111111111',
-        "emergencyName2": 'contact2name',
-        // "emergencyContact1": contact1phoneno,
-        // "emergencyName1": contact1name,
-        // "emergencyContact2": contact2phoneno,
-        // "emergencyName2": contact2name,
+        // "emergencyContact1": '9999999999',
+        // "emergencyName1": 'contact1name',
+        // "emergencyContact2": '1111111111',
+        // "emergencyName2": 'contact2name',
+        "emergencyContact1": contact1phoneno,
+        "emergencyName1": contact1name,
+        "emergencyContact2": contact2phoneno,
+        "emergencyName2": contact2name,
         "loggedIn": "N",
         "idDeleted": "N"
       });
