@@ -2,8 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:gokullu/Database/database_helper.dart';
-import 'package:gokullu/SignUp/widgets/e_contact1.dart';
-import 'package:gokullu/SignUp/widgets/e_contact2.dart';
 // import 'package:gokullu/SignUp/widgets/e_contact1.dart';
 // import 'package:gokullu/SignUp/widgets/e_contact2.dart';
 import 'package:gokullu/constant.dart';
@@ -27,8 +25,10 @@ class _RegForm extends State<RegForm> {
   final _nameTextController = TextEditingController();
   final _mobileTextController = TextEditingController();
   final _addressTextController = TextEditingController();
+  final _eContact1TextController = TextEditingController();
+  final _eContact2TextController = TextEditingController();
 
-  Map<String, dynamic> _userDataMap = Map<String, dynamic>();
+  // Map<String, dynamic> _userDataMap = Map<String, dynamic>();
   String contact1name;
   String contact1phoneno;
   String contact2name;
@@ -43,17 +43,17 @@ class _RegForm extends State<RegForm> {
     await prefs.setBool('isLogin', true);
   }
 
-  _setcontact1() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    contact1name = prefs.getString('econtact1fullname');
-    contact1phoneno = prefs.getString('econtact1phoneno');
-  }
+  // _setcontact1() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   contact1name = prefs.getString('econtact1fullname');
+  //   contact1phoneno = prefs.getString('econtact1phoneno');
+  // }
 
-  _setcontact2() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    contact2name = prefs.getString('econtact2fullname');
-    contact2phoneno = prefs.getString('econtact2phoneno');
-  }
+  // _setcontact2() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   contact2name = prefs.getString('econtact2fullname');
+  //   contact2phoneno = prefs.getString('econtact2phoneno');
+  // }
 
   // reference to our single class that manages the database
   final dbHelper = DatabaseHelper.instance;
@@ -67,6 +67,8 @@ class _RegForm extends State<RegForm> {
     _nameTextController.dispose();
     _mobileTextController.dispose();
     _addressTextController.dispose();
+    _eContact1TextController.dispose();
+    _eContact2TextController.dispose();
     super.dispose();
   }
 
@@ -76,12 +78,12 @@ class _RegForm extends State<RegForm> {
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Container(
-          margin: const EdgeInsets.fromLTRB(10, 70, 10, 10),
-          padding: const EdgeInsets.only(top: 10, bottom: 24),
+          margin: const EdgeInsets.fromLTRB(10, 50, 10, 10),
+          padding: const EdgeInsets.only(top: 10, bottom: 30),
           decoration: BoxDecoration(
             color: Colors.white,
-            border: Border.all(color: Colors.grey[400]),
-            borderRadius: BorderRadius.all(Radius.circular(25.0)),
+            border: Border.all(color: Colors.grey[400], width: 5),
+            borderRadius: BorderRadius.all(Radius.circular(20.0)),
           ),
           child: Column(
             children: <Widget>[
@@ -95,260 +97,321 @@ class _RegForm extends State<RegForm> {
                   ),
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.all(15.0),
-                padding: const EdgeInsets.all(13.0),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey[400]),
-                  borderRadius: BorderRadius.all(Radius.circular(25.0)),
-                ),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: <Widget>[
-                      // Email Field
-                      SizedBox(
-                        width: 360,
-                        child: TextFormField(
-                          keyboardType: TextInputType.emailAddress,
-                          onSaved: (input) => loginRequestModel.email = input,
-                          // validator: (input) => input.length < 1
-                          validator: (input) =>
-                              !input.contains('@') ? 'Email Required' : null,
-                          decoration: new InputDecoration(
-                            hintText: 'Enter Email',
-                            enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Theme.of(context)
-                                        .accentColor
-                                        .withOpacity(0.2))),
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Theme.of(context).accentColor)),
-                            prefixIcon: Icon(
-                              Icons.email,
-                              color: Theme.of(context).accentColor,
+              SingleChildScrollView(
+                child: Container(
+                  margin: const EdgeInsets.all(15.0),
+                  padding: const EdgeInsets.all(12.0),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey[400]),
+                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                  ),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: <Widget>[
+                        // Email Field
+                        SizedBox(
+                          width: 360,
+                          child: TextFormField(
+                            keyboardType: TextInputType.emailAddress,
+                            onSaved: (input) => loginRequestModel.email = input,
+                            // validator: (input) => input.length < 1
+                            validator: (input) =>
+                                !input.contains('@') ? 'Email Required' : null,
+                            decoration: new InputDecoration(
+                              hintText: 'Enter Email',
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context)
+                                          .accentColor
+                                          .withOpacity(0.2))),
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context).accentColor)),
+                              prefixIcon: Icon(
+                                Icons.email,
+                                color: Theme.of(context).accentColor,
+                              ),
                             ),
+                            controller: _emailTextController,
                           ),
-                          controller: _emailTextController,
                         ),
-                      ),
-                      Divider(),
+                        Divider(),
 
-                      // Password Field
-                      SizedBox(
-                        width: 360,
-                        child: TextFormField(
-                          style:
-                              TextStyle(color: Theme.of(context).accentColor),
-                          keyboardType: TextInputType.text,
-                          onSaved: (input) =>
-                              loginRequestModel.password = input,
-                          validator: (input) => input.length < 8
-                              ? 'Password should be 8 characters or more'
-                              : null,
-                          obscureText: hidePassword,
-                          decoration: new InputDecoration(
-                            hintText: 'Enter Password',
-                            enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Theme.of(context)
-                                        .accentColor
-                                        .withOpacity(0.2))),
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Theme.of(context).accentColor)),
-                            prefixIcon: Icon(
-                              Icons.lock,
-                              color: Theme.of(context).accentColor,
+                        // Password Field
+                        SizedBox(
+                          width: 360,
+                          child: TextFormField(
+                            keyboardType: TextInputType.text,
+                            onSaved: (input) =>
+                                loginRequestModel.password = input,
+                            validator: (input) => input.length < 8
+                                ? 'Password should be 8 characters or more'
+                                : null,
+                            obscureText: hidePassword,
+                            decoration: new InputDecoration(
+                              hintText: 'Enter Password',
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context)
+                                          .accentColor
+                                          .withOpacity(0.2))),
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context).accentColor)),
+                              prefixIcon: Icon(
+                                Icons.lock,
+                                color: Theme.of(context).accentColor,
+                              ),
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    hidePassword = !hidePassword;
+                                  });
+                                },
+                                color: Theme.of(context)
+                                    .accentColor
+                                    .withOpacity(0.4),
+                                icon: Icon(hidePassword
+                                    ? Icons.visibility_off
+                                    : Icons.visibility),
+                              ),
                             ),
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  hidePassword = !hidePassword;
-                                });
-                              },
-                              color: Theme.of(context)
-                                  .accentColor
-                                  .withOpacity(0.4),
-                              icon: Icon(hidePassword
-                                  ? Icons.visibility_off
-                                  : Icons.visibility),
-                            ),
+                            controller: _passwordTextController,
                           ),
-                          controller: _passwordTextController,
                         ),
-                      ),
-                      Divider(),
+                        Divider(),
 
-                      // Confirm Password Field
-                      SizedBox(
-                        width: 360,
-                        child: TextFormField(
-                          style:
-                              TextStyle(color: Theme.of(context).accentColor),
-                          keyboardType: TextInputType.text,
-                          onSaved: (input) =>
-                              loginRequestModel.confirmPassword = input,
-                          validator: (input) => input.length < 1
-                              ? 'Confirm Password cannot be empty'
-                              : null,
-                          // validator: (input) {
-                          //   if (widget._passwordTextController.value ==
-                          //       widget._confirmPasswordTextController.value) {
-                          //     return 'Password is required';
-                          //   } else {
-                          //     return null;
-                          //   }
-                          // }
-                          obscureText: hidePassword,
-                          decoration: new InputDecoration(
-                            hintText: 'Confirm Password',
-                            enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Theme.of(context)
-                                        .accentColor
-                                        .withOpacity(0.2))),
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Theme.of(context).accentColor)),
-                            prefixIcon: Icon(
-                              Icons.lock,
-                              color: Theme.of(context).accentColor,
+                        // Confirm Password Field
+                        SizedBox(
+                          width: 360,
+                          child: TextFormField(
+                            keyboardType: TextInputType.text,
+                            onSaved: (input) =>
+                                loginRequestModel.confirmPassword = input,
+                            validator: (input) => input.length < 1
+                                ? 'Confirm Password cannot be empty'
+                                : null,
+                            // validator: (input) {
+                            //   if (widget._passwordTextController.value ==
+                            //       widget._confirmPasswordTextController.value) {
+                            //     return 'Password is required';
+                            //   } else {
+                            //     return null;
+                            //   }
+                            // }
+                            obscureText: hidePassword,
+                            decoration: new InputDecoration(
+                              hintText: 'Confirm Password',
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context)
+                                          .accentColor
+                                          .withOpacity(0.2))),
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context).accentColor)),
+                              prefixIcon: Icon(
+                                Icons.lock,
+                                color: Theme.of(context).accentColor,
+                              ),
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    hidePassword = !hidePassword;
+                                  });
+                                },
+                                color: Theme.of(context)
+                                    .accentColor
+                                    .withOpacity(0.4),
+                                icon: Icon(hidePassword
+                                    ? Icons.visibility_off
+                                    : Icons.visibility),
+                              ),
                             ),
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  hidePassword = !hidePassword;
-                                });
-                              },
-                              color: Theme.of(context)
-                                  .accentColor
-                                  .withOpacity(0.4),
-                              icon: Icon(hidePassword
-                                  ? Icons.visibility_off
-                                  : Icons.visibility),
-                            ),
+                            controller: _confirmPasswordTextController,
                           ),
-                          controller: _confirmPasswordTextController,
                         ),
-                      ),
-                      Divider(),
+                        Divider(),
 
-                      // Name Field
-                      SizedBox(
-                        width: 360,
-                        child: TextFormField(
-                          style:
-                              TextStyle(color: Theme.of(context).accentColor),
-                          keyboardType: TextInputType.text,
-                          onSaved: (input) => loginRequestModel.name = input,
-                          validator: (input) =>
-                              input.length < 1 ? 'Name cannot be empty' : null,
-                          // obscureText: hidePassword,
-                          decoration: new InputDecoration(
-                            hintText: 'Enter Your Name',
-                            enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Theme.of(context)
-                                        .accentColor
-                                        .withOpacity(0.2))),
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Theme.of(context).accentColor)),
-                            prefixIcon: Icon(
-                              Icons.person,
-                              color: Theme.of(context).accentColor,
+                        // Name Field
+                        SizedBox(
+                          width: 360,
+                          child: TextFormField(
+                            keyboardType: TextInputType.text,
+                            onSaved: (input) => loginRequestModel.name = input,
+                            validator: (input) => input.length < 1
+                                ? 'Name cannot be empty'
+                                : null,
+                            // obscureText: hidePassword,
+                            decoration: new InputDecoration(
+                              hintText: 'Enter Your Name',
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context)
+                                          .accentColor
+                                          .withOpacity(0.2))),
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context).accentColor)),
+                              prefixIcon: Icon(
+                                Icons.person,
+                                color: Theme.of(context).accentColor,
+                              ),
                             ),
+                            controller: _nameTextController,
                           ),
-                          controller: _nameTextController,
                         ),
-                      ),
-                      Divider(),
+                        Divider(),
 
-                      // Mobile Field
-                      SizedBox(
-                        width: 360,
-                        child: TextFormField(
-                          style:
-                              TextStyle(color: Theme.of(context).accentColor),
-                          keyboardType: TextInputType.text,
-                          onSaved: (input) => loginRequestModel.mobile = input,
-                          validator: (input) => input.length < 1
-                              ? 'Mobile can not be empty'
-                              : null,
-                          // obscureText: hidePassword,
-                          decoration: new InputDecoration(
-                            hintText: 'Enter Mobile No.',
-                            enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Theme.of(context)
-                                        .accentColor
-                                        .withOpacity(0.2))),
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Theme.of(context).accentColor)),
-                            prefixIcon: Icon(
-                              Icons.mobile_friendly,
-                              color: Theme.of(context).accentColor,
+                        // Mobile Field
+                        SizedBox(
+                          width: 360,
+                          child: TextFormField(
+                            keyboardType: TextInputType.text,
+                            onSaved: (input) =>
+                                loginRequestModel.mobile = input,
+                            validator: (input) => input.length < 1
+                                ? 'Mobile can not be empty'
+                                : null,
+                            // obscureText: hidePassword,
+                            decoration: new InputDecoration(
+                              hintText: 'Enter Mobile No.',
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context)
+                                          .accentColor
+                                          .withOpacity(0.2))),
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context).accentColor)),
+                              prefixIcon: Icon(
+                                Icons.mobile_friendly,
+                                color: Theme.of(context).accentColor,
+                              ),
                             ),
+                            controller: _mobileTextController,
                           ),
-                          controller: _mobileTextController,
                         ),
-                      ),
-                      Divider(),
+                        Divider(),
 
-                      // Address Field
-                      SizedBox(
-                        width: 360,
-                        child: TextFormField(
-                          style:
-                              TextStyle(color: Theme.of(context).accentColor),
-                          keyboardType: TextInputType.text,
-                          onSaved: (input) => loginRequestModel.address = input,
-                          validator: (input) => input.length < 1
-                              ? 'Address Field can not be empty'
-                              : null,
-                          // obscureText: hidePassword,
-                          decoration: new InputDecoration(
-                            hintText: 'Enter Your Address',
-                            enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Theme.of(context)
-                                        .accentColor
-                                        .withOpacity(0.2))),
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Theme.of(context).accentColor)),
-                            prefixIcon: Icon(
-                              Icons.home_filled,
-                              color: Theme.of(context).accentColor,
+                        // Address Field
+                        SizedBox(
+                          width: 360,
+                          child: TextFormField(
+                            keyboardType: TextInputType.text,
+                            onSaved: (input) =>
+                                loginRequestModel.address = input,
+                            validator: (input) => input.length < 1
+                                ? 'Address Field can not be empty'
+                                : null,
+                            // obscureText: hidePassword,
+                            decoration: new InputDecoration(
+                              hintText: 'Enter Your Address',
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context)
+                                          .accentColor
+                                          .withOpacity(0.2))),
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context).accentColor)),
+                              prefixIcon: Icon(
+                                Icons.home_filled,
+                                color: Theme.of(context).accentColor,
+                              ),
                             ),
+                            controller: _addressTextController,
                           ),
-                          controller: _addressTextController,
                         ),
-                      ),
-                    ],
+
+                        Divider(),
+
+                        // Emergency Contact1
+                        SizedBox(
+                          width: 360,
+                          child: TextFormField(
+                            keyboardType: TextInputType.text,
+                            onSaved: (input) =>
+                                loginRequestModel.address = input,
+                            validator: (input) => input.length < 1
+                                ? 'This field is Important'
+                                : null,
+                            // obscureText: hidePassword,
+                            decoration: new InputDecoration(
+                              hintText: 'Emergency Contact 1 Phone/Mobile',
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context)
+                                          .accentColor
+                                          .withOpacity(0.2))),
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context).accentColor)),
+                              prefixIcon: Icon(
+                                Icons.person_add_alt_1_rounded,
+                                color: Theme.of(context).accentColor,
+                              ),
+                            ),
+                            controller: _eContact1TextController,
+                          ),
+                        ),
+
+                        Divider(),
+
+                        // Address Field
+                        SizedBox(
+                          width: 360,
+                          child: TextFormField(
+                            keyboardType: TextInputType.text,
+                            onSaved: (input) =>
+                                loginRequestModel.address = input,
+                            validator: (input) => input.length < 1
+                                ? 'This field is Important'
+                                : null,
+                            // obscureText: hidePassword,
+                            decoration: new InputDecoration(
+                              hintText: 'Emergency Contact 2 Phone/Mobile',
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context)
+                                          .accentColor
+                                          .withOpacity(0.2))),
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context).accentColor)),
+                              prefixIcon: Icon(
+                                Icons.person_add_alt_1_rounded,
+                                color: Theme.of(context).accentColor,
+                              ),
+                            ),
+                            controller: _eContact2TextController,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
 
               // Emergency Contact 1
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    EContact1(),
-                  ]),
+
+              // Row(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     children: <Widget>[
+              //       // EContact1(),
+              //     ]),
 
               SizedBox(height: 8),
 
-              // // Emergency Contact 2
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    EContact2(),
-                  ]),
-              SizedBox(height: 15),
+              // Emergency Contact 2
+
+              // Row(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     children: <Widget>[
+              //       // EContact2(),
+              //     ]),
+              // SizedBox(height: 15),
               Row(
                 children: <Widget>[
                   Flexible(
@@ -510,8 +573,8 @@ class _RegForm extends State<RegForm> {
 
   //Pankaj
   fetchData() async {
-    await _setcontact1();
-    await _setcontact2();
+    // await _setcontact1();
+    // await _setcontact2();
     try {
       String url = 'http://164.100.207.5/gokullu/Service1.svc/RegisterUser?';
       Map<String, String> headers = {'Content-Type': 'application/json'};
@@ -523,14 +586,14 @@ class _RegForm extends State<RegForm> {
         "trekkerMobile": "${_mobileTextController.text}",
         "trekkerGender": " ",
         "trekkerAddress": "${_addressTextController.text}",
-        // "emergencyContact1": '9999999999',
-        // "emergencyName1": 'contact1name',
-        // "emergencyContact2": '1111111111',
-        // "emergencyName2": 'contact2name',
-        "emergencyContact1": contact1phoneno,
-        "emergencyName1": contact1name,
-        "emergencyContact2": contact2phoneno,
-        "emergencyName2": contact2name,
+        "emergencyContact1": '${_eContact1TextController.text}',
+        "emergencyName1": '${_eContact1TextController.text}',
+        "emergencyContact2": '${_eContact2TextController.text}',
+        "emergencyName2": '${_eContact2TextController.text}',
+        // "emergencyContact1": contact1phoneno,
+        // "emergencyName1": contact1name,
+        // "emergencyContact2": contact2phoneno,
+        // "emergencyName2": contact2name,
         "loggedIn": "N",
         "idDeleted": "N"
       });
