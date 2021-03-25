@@ -6,6 +6,7 @@ import 'package:gokullu/screen/About/about_app.dart';
 import 'package:gokullu/screen/about/aboutus.dart';
 import 'package:gokullu/screen/about/widget/kulluroute.dart';
 import 'package:gokullu/screen/trek_menu/trek_menu.dart';
+import 'package:gokullu/userscreen/home.dart';
 // import 'package:gokullu/userscreen/home.dart';
 
 import '../constant.dart';
@@ -54,6 +55,7 @@ class _MyNavBarState extends State<MyNavBar> {
     KulluRoute(),
     TrekMenu(),
     AboutUs(),
+    MyHomePage(),
   ];
 
   void onTappedBar(int index) {
@@ -80,7 +82,7 @@ class _MyNavBarState extends State<MyNavBar> {
             Icon(Icons.bus_alert, size: 35, color: Colors.white),
             Icon(Icons.terrain_rounded, size: 35, color: Colors.white),
             Icon(Icons.alternate_email_outlined, size: 35, color: Colors.white),
-            // Icon(Icons.alternate_email_outlined, size: 30, color: Colors.white),
+            Icon(Icons.perm_contact_cal, size: 35, color: Colors.white),
           ],
           // animationDuration: Duration(milliseconds: 300),
           // index: 1,

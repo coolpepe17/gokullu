@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gokullu/SignUp/emergency.dart';
 // import 'package:gokullu/SignUp/emergency.dart';
 import 'package:gokullu/constant.dart';
 import 'package:gokullu/screen/preferences/widget/header_image.dart';
@@ -90,7 +91,12 @@ class TrekDetails extends StatelessWidget {
           Transform.scale(
             scale: 1.1,
             child: FloatingActionButton.extended(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => EContacts()),
+                );
+              },
               icon: Icon(Icons.terrain_rounded, size: 35),
               label: Text(
                 'Proceed',

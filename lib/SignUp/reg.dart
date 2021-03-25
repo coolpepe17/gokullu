@@ -25,8 +25,8 @@ class _RegForm extends State<RegForm> {
   final _nameTextController = TextEditingController();
   final _mobileTextController = TextEditingController();
   final _addressTextController = TextEditingController();
-  final _eContact1TextController = TextEditingController();
-  final _eContact2TextController = TextEditingController();
+  // final _eContact1TextController = TextEditingController();
+  // final _eContact2TextController = TextEditingController();
 
   // Map<String, dynamic> _userDataMap = Map<String, dynamic>();
   String contact1name;
@@ -67,8 +67,8 @@ class _RegForm extends State<RegForm> {
     _nameTextController.dispose();
     _mobileTextController.dispose();
     _addressTextController.dispose();
-    _eContact1TextController.dispose();
-    _eContact2TextController.dispose();
+    // _eContact1TextController.dispose();
+    // _eContact2TextController.dispose();
     super.dispose();
   }
 
@@ -78,7 +78,7 @@ class _RegForm extends State<RegForm> {
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Container(
-          margin: const EdgeInsets.fromLTRB(10, 50, 10, 10),
+          margin: const EdgeInsets.fromLTRB(10, 70, 10, 10),
           padding: const EdgeInsets.only(top: 10, bottom: 30),
           decoration: BoxDecoration(
             color: Colors.white,
@@ -325,69 +325,69 @@ class _RegForm extends State<RegForm> {
                           ),
                         ),
 
-                        Divider(),
+                        // Divider(),
 
                         // Emergency Contact1
-                        SizedBox(
-                          width: 360,
-                          child: TextFormField(
-                            keyboardType: TextInputType.text,
-                            onSaved: (input) =>
-                                loginRequestModel.address = input,
-                            validator: (input) => input.length < 1
-                                ? 'This field is Important'
-                                : null,
-                            // obscureText: hidePassword,
-                            decoration: new InputDecoration(
-                              hintText: 'Emergency Contact 1 Phone/Mobile',
-                              enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Theme.of(context)
-                                          .accentColor
-                                          .withOpacity(0.2))),
-                              focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Theme.of(context).accentColor)),
-                              prefixIcon: Icon(
-                                Icons.person_add_alt_1_rounded,
-                                color: Theme.of(context).accentColor,
-                              ),
-                            ),
-                            controller: _eContact1TextController,
-                          ),
-                        ),
+                        // SizedBox(
+                        //   width: 360,
+                        //   child: TextFormField(
+                        //     keyboardType: TextInputType.text,
+                        //     onSaved: (input) =>
+                        //         loginRequestModel.address = input,
+                        //     validator: (input) => input.length < 1
+                        //         ? 'This field is Important'
+                        //         : null,
+                        //     // obscureText: hidePassword,
+                        //     decoration: new InputDecoration(
+                        //       hintText: 'Emergency Contact 1 Phone/Mobile',
+                        //       enabledBorder: UnderlineInputBorder(
+                        //           borderSide: BorderSide(
+                        //               color: Theme.of(context)
+                        //                   .accentColor
+                        //                   .withOpacity(0.2))),
+                        //       focusedBorder: UnderlineInputBorder(
+                        //           borderSide: BorderSide(
+                        //               color: Theme.of(context).accentColor)),
+                        //       prefixIcon: Icon(
+                        //         Icons.person_add_alt_1_rounded,
+                        //         color: Theme.of(context).accentColor,
+                        //       ),
+                        //     ),
+                        //     controller: _eContact1TextController,
+                        //   ),
+                        // ),
 
-                        Divider(),
+                        // Divider(),
 
-                        // Address Field
-                        SizedBox(
-                          width: 360,
-                          child: TextFormField(
-                            keyboardType: TextInputType.text,
-                            onSaved: (input) =>
-                                loginRequestModel.address = input,
-                            validator: (input) => input.length < 1
-                                ? 'This field is Important'
-                                : null,
-                            // obscureText: hidePassword,
-                            decoration: new InputDecoration(
-                              hintText: 'Emergency Contact 2 Phone/Mobile',
-                              enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Theme.of(context)
-                                          .accentColor
-                                          .withOpacity(0.2))),
-                              focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Theme.of(context).accentColor)),
-                              prefixIcon: Icon(
-                                Icons.person_add_alt_1_rounded,
-                                color: Theme.of(context).accentColor,
-                              ),
-                            ),
-                            controller: _eContact2TextController,
-                          ),
-                        ),
+                        // // Emergency COntact2
+                        // SizedBox(
+                        //   width: 360,
+                        //   child: TextFormField(
+                        //     keyboardType: TextInputType.text,
+                        //     onSaved: (input) =>
+                        //         loginRequestModel.address = input,
+                        //     validator: (input) => input.length < 1
+                        //         ? 'This field is Important'
+                        //         : null,
+                        //     // obscureText: hidePassword,
+                        //     decoration: new InputDecoration(
+                        //       hintText: 'Emergency Contact 2 Phone/Mobile',
+                        //       enabledBorder: UnderlineInputBorder(
+                        //           borderSide: BorderSide(
+                        //               color: Theme.of(context)
+                        //                   .accentColor
+                        //                   .withOpacity(0.2))),
+                        //       focusedBorder: UnderlineInputBorder(
+                        //           borderSide: BorderSide(
+                        //               color: Theme.of(context).accentColor)),
+                        //       prefixIcon: Icon(
+                        //         Icons.person_add_alt_1_rounded,
+                        //         color: Theme.of(context).accentColor,
+                        //       ),
+                        //     ),
+                        //     controller: _eContact2TextController,
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
@@ -586,10 +586,10 @@ class _RegForm extends State<RegForm> {
         "trekkerMobile": "${_mobileTextController.text}",
         "trekkerGender": " ",
         "trekkerAddress": "${_addressTextController.text}",
-        "emergencyContact1": '${_eContact1TextController.text}',
-        "emergencyName1": '${_eContact1TextController.text}',
-        "emergencyContact2": '${_eContact2TextController.text}',
-        "emergencyName2": '${_eContact2TextController.text}',
+        // "emergencyContact1": '${_eContact1TextController.text}',
+        // "emergencyName1": '${_eContact1TextController.text}',
+        // "emergencyContact2": '${_eContact2TextController.text}',
+        // "emergencyName2": '${_eContact2TextController.text}',
         // "emergencyContact1": contact1phoneno,
         // "emergencyName1": contact1name,
         // "emergencyContact2": contact2phoneno,
