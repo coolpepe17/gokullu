@@ -77,14 +77,31 @@ class TrekDetails extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        tooltip: 'Back',
-        child: Icon(Icons.arrow_back_rounded),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            tooltip: 'Back',
+            child: Icon(Icons.arrow_back_rounded),
+          ),
+          Transform.scale(
+            scale: 1.1,
+            child: FloatingActionButton.extended(
+              onPressed: () {},
+              icon: Icon(Icons.terrain_rounded, size: 35),
+              label: Text(
+                'Proceed',
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+          )
+        ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      // floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
     );
   }
 
